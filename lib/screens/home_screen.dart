@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomItemsBuilder(
                     totalItems: _data.length,
-                    childAspectRaito: 3 / 4,
+                    childAspectRaito: 3 / 4.2,
                     itemBuilder: (BuildContext context, int index) {
                       return CustomCard(
                         margin: const EdgeInsets.only(bottom: 8.0),
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: <Widget>[
                             Container(
                               width: double.infinity,
-                              height: 100,
+                              height: 140,
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(16.0),
@@ -93,12 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    _data[index].albumName,
+                                    _data[index].songName,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600),
                                   ),
+                                  Text(_data[index].artistName),
                                   SizedBox(
                                     height: 8.0,
                                   ),
@@ -112,7 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       _buildCustomIconButton(
-                                          songName: _data[index].albumName,
+                                          artistName: _data[index].artistName,
+                                          songName: _data[index].songName,
                                           price: _data[index].price),
                                     ],
                                   ),
@@ -131,12 +133,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCustomIconButton({double price, String songName}) {
+  Widget _buildCustomIconButton(
+      {double price, String songName, String artistName}) {
     return InkWell(
       onTap: () {
         showModalBottomSheet(
             context: context,
             builder: (BuildContext ctx) => AddToCart(
+                  artistName: artistName,
                   songName: songName,
                   price: price,
                 ));

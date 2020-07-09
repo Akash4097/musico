@@ -30,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             title: Text("Account"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.shoppingCart),
+            icon: Text("2"), //Icon(FontAwesomeIcons.shoppingCart),
             title: Text('Cart'),
           ),
         ],

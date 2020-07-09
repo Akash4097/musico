@@ -23,9 +23,10 @@ class SongProvider with ChangeNotifier {
         loadedSongs.add(
           Song(
               imageUrl: data["artworkUrl100"],
-              albumName: data["trackName"],
+              songName: data["trackName"],
               price: data["trackPrice"],
-              genre: data["primaryGenreName"]),
+              genre: data["primaryGenreName"],
+              artistName: data["artistName"]),
         );
       });
       print(loadedSongs.first.imageUrl);

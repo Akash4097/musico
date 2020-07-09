@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class AddToCart extends StatefulWidget {
   final double price;
   final String songName;
-  const AddToCart({Key key, @required this.price, @required this.songName})
+  final String artistName;
+  const AddToCart(
+      {Key key,
+      @required this.price,
+      @required this.songName,
+      @required this.artistName})
       : super(key: key);
 
   @override
@@ -43,12 +48,22 @@ class _AddToCartState extends State<AddToCart> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        widget.songName,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.w500),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            widget.songName,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            widget.artistName,
+                            style: TextStyle(
+                                fontSize: 16.0,),
+                          )
+                        ],
                       ),
                     ),
                     Text(
