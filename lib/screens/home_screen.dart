@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:musico/providers/song_provider.dart';
+import 'package:musico/widgets/add_to_cart_widget.dart';
 import 'package:musico/widgets/bottom_nav_bar.dart';
 import 'package:musico/widgets/custom_card.dart';
 import 'package:musico/widgets/custom_item_builder.dart';
@@ -37,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final _data = Provider.of<SongProvider>(context).song;
-    int _selectedIndex = 0;
 
     return SafeArea(
       child: Scaffold(
@@ -111,7 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      _buildCustomIconButton(),
+                                      _buildCustomIconButton(
+                                          songName: _data[index].albumName,
+                                          price: _data[index].price),
                                     ],
                                   ),
                                 ],
@@ -129,10 +131,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCustomIconButton() {
+  Widget _buildCustomIconButton({double price, String songName}) {
     return InkWell(
       onTap: () {
-        _addToCartSheet();
+        showModalBottomSheet(
+            context: context,
+            builder: (BuildContext ctx) => AddToCart(
+                  songName: songName,
+                  price: price,
+                ));
       },
       child: Container(
         alignment: Alignment.center,
@@ -147,63 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 18.0,
         ),
       ),
-    );
-  }
-
-  void _addToCartSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) {
-        return Container(
-          color: Color(0xFF737373),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(width: .6),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(36.0),
-                topRight: Radius.circular(36.0),
-              ),
-            ),
-            padding: EdgeInsets.only(top: 32.0, left: 16.0, right: 16.0),
-            height: 320.0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Your Order",
-                  style: TextStyle(fontSize: 28.0),
-                ),
-                ListView(
-                  shrinkWrap: true,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[Text("Total:"), Text("total price")],
-                ),
-                Container(
-                  width: 240.0,
-                  height: 55.0,
-                  child: RaisedButton(
-                    textColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    color: Colors.yellow[700],
-                    child: Text(
-                      "Add to Cart",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }
