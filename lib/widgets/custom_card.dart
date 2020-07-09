@@ -23,7 +23,7 @@ class CustomCard extends StatelessWidget {
     return Container(
       alignment: alignment,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(16.0),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
