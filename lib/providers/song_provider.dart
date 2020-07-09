@@ -15,10 +15,8 @@ class SongProvider with ChangeNotifier {
     var url = "https://itunes.apple.com/search?term=music";
 
     try {
-      print("started");
       final response = await http.get(url);
       final extractedData = json.decode(response.body)["results"];
-      print(extractedData);
       final List<Song> loadedSongs = [];
 
       extractedData.forEach((data) {

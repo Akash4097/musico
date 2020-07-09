@@ -22,6 +22,7 @@ class CustomItemsBuilder extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: childAspectRaito ?? 3 / 2,
             crossAxisSpacing: 24.0,
+            mainAxisSpacing: 16.0,
             crossAxisCount: crossAxisCount ?? 2),
         shrinkWrap: true,
         itemCount: totalItems,
