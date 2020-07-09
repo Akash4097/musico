@@ -113,9 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       _buildCustomIconButton(
-                                          artistName: _data[index].artistName,
-                                          songName: _data[index].songName,
-                                          price: _data[index].price),
+                                        artistName: _data[index].artistName,
+                                        songName: _data[index].songName,
+                                        trackId: _data[index].trackId,
+                                        price: _data[index].price,
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -134,12 +136,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildCustomIconButton(
-      {double price, String songName, String artistName}) {
+      {double price, String songName, String artistName, int trackId}) {
     return InkWell(
       onTap: () {
         showModalBottomSheet(
             context: context,
             builder: (BuildContext ctx) => AddToCart(
+                  trackId: trackId,
                   artistName: artistName,
                   songName: songName,
                   price: price,

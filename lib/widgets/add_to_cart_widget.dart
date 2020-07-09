@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:musico/providers/song_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddToCart extends StatefulWidget {
   final double price;
+  final int trackId;
   final String songName;
   final String artistName;
   const AddToCart(
       {Key key,
+      @required this.trackId,
       @required this.price,
       @required this.songName,
       @required this.artistName})
@@ -61,7 +65,8 @@ class _AddToCartState extends State<AddToCart> {
                           Text(
                             widget.artistName,
                             style: TextStyle(
-                                fontSize: 16.0,),
+                              fontSize: 16.0,
+                            ),
                           )
                         ],
                       ),
@@ -101,6 +106,8 @@ class _AddToCartState extends State<AddToCart> {
                   style: TextStyle(fontSize: 20.0),
                 ),
                 onPressed: () {
+                  Provider.of<SongProvider>(context, listen: false)
+                      .setOrderSong(widget.trackId);
                   Navigator.of(context).pop();
                 },
               ),
