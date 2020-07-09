@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:musico/providers/song_provider.dart';
 import 'package:musico/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,14 +10,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomeScreen(),
+    return ChangeNotifierProvider.value(
+      builder: (BuildContext context, Widget child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primaryColor: Colors.white,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: HomeScreen(),
+        );
+      },
+      value: SongProvider(),
     );
   }
 }

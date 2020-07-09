@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:musico/providers/song_provider.dart';
 import 'package:musico/widgets/custom_card.dart';
 import 'package:musico/widgets/custom_item_builder.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -11,8 +13,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _initState = true;
+  var _isLoading = false;
+
+  getData() async {
+    await Provider.of<SongProvider>(context).fetchSongsData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_initState) {
+      setState(() {
+        _isLoading = true;
+        getData();
+      });
+      _initState = false;
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _data = Provider.of<SongProvider>(context).song;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -32,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: const EdgeInsets.all(8.0),
           padding: const EdgeInsets.all(8.0),
           child: CustomItemsBuilder(
-            totalItems: 2,
+            totalItems: _data.length,
             childAspectRaito: 3 / 3.5,
             itemBuilder: (BuildContext context, int index) {
               return CustomCard(
@@ -48,11 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Image.network(
-                        "",
+                        _data[index].imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Text("Song Name"),
+                    Text(_data[index].albumName),
                     Text("Rating(optional)"),
                     Row(
                       children: <Widget>[

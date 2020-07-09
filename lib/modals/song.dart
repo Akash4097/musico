@@ -4,11 +4,12 @@ class Song {
   final String albumName;
   final double ratings;
   final double price;
-  final String gener;
-
+  final String genre;
+  final String imageUrl;
   Song(
-      {@required this.albumName,
-      @required this.ratings,
+      {@required this.imageUrl,
+      @required this.albumName,
+       this.ratings,
       @required this.price,
-      this.gener});
+      this.genre});
 }
